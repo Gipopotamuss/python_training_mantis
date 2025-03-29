@@ -2,6 +2,8 @@ import pytest
 import json
 import os.path
 from fixture.application import Application
+import jsonpickle
+import importlib
 
 fixture = None
 target = None
@@ -21,6 +23,7 @@ def app(request):
     web_config = load_config(request.config.getoption("--target"))['web']
     if fixture is None or not fixture.is_valid():
         fixture = Application(browser=browser, base_url=web_config["baseUrl"])
+        fixture.session.ensure_login("administrator", "root")
     return fixture
 
 
@@ -36,6 +39,4 @@ def stop(request):
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="firefox")
     parser.addoption("--target", action="store", default="target.json")
-
-
 
