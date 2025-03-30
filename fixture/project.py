@@ -48,4 +48,4 @@ class ProjectHelper:
 
     def enter_to_project_page_by_id(self, id):
         wd = self.app.wd
-        wd.get('http://localhost/mantisbt-1.2.20/manage_proj_edit_page.php?project_id=' + id)
+        wd.get(self.app.base_url+'manage_proj_edit_page.php?project_id='+str(id))
